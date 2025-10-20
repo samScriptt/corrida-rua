@@ -1,8 +1,14 @@
+# Ambiente virtual
 venv/
-__pycache__/
-*.pyc
-db.sqlite3
 .env
-*.log
-*.pot
+
+# Arquivos Python
+__pycache__/
 *.py[cod]
+
+# Banco de dados local
+db.sqlite3
+
+# Cache Django
+staticfiles/
+media/
