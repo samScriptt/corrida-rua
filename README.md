@@ -117,7 +117,6 @@ erDiagram
       int carro_id   FK
       int numero_largada
       string situacao  "APROVADA/PENDENTE/INDEFERIDA"
-      unique (corrida_id, numero_largada)
-      unique (corrida_id, piloto_id)
+      %% restrições únicas: (corrida_id, numero_largada), (corrida_id, piloto_id)
     }
 ```
