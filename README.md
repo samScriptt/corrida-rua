@@ -39,13 +39,6 @@ python manage.py migrate
 
 ---
 
-### 4️⃣ Criar superusuário para acessar o Admin
-```bash
-python manage.py createsuperuser
-```
-
----
-
 ### 5️⃣ Iniciar o servidor
 ```bash
 python manage.py runserver
@@ -53,7 +46,7 @@ python manage.py runserver
 
 Depois abra no navegador:
 
-👉 **http://127.0.0.1:8000/admin/**
+👉 **http://127.0.0.1:8000/**
 
 ---
 
