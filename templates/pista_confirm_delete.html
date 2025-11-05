@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Excluir Pista</h1>
+    <p>Você tem certeza que deseja excluir a pista: <strong>{{ object.nome }}</strong>?</p>
+    <small>Tenha certeza de que nenhuma corrida está vinculada a ela antes de excluir.</small>
+    
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="contrast">Sim, Excluir</button>
+        <a href="{% url 'core:pista_list' %}" role="button" class="secondary">Cancelar</a>
+    </form>
+{% endblock %}

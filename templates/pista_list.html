@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>🗺️ Pistas Cadastradas</h1>
+    <a href="{% url 'core:pista_create' %}" role="button">Adicionar Nova Pista</a>
+
+    <table role="grid">
+        <thead>
+            <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Cidade</th>
+                <th scope="col">Extensão (km)</th>
+                <th scope="col">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pista in pistas %}
+            <tr>
+                <td>{{ pista.nome }}</td>
+                <td>{{ pista.cidade }}</td>
+                <td>{{ pista.extensao_km }} km</td>
+                <td>
+                    <a href="{% url 'core:pista_update' pista.pk %}">Editar</a>
+                    |
+                    <a href="{% url 'core:pista_delete' pista.pk %}">Excluir</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">Nenhuma pista cadastrada. Seja o primeiro a adicionar!</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

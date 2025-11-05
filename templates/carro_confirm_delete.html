@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Excluir Carro</h1>
+    <p>Você tem certeza que deseja excluir o carro: <strong>{{ object.modelo }} ({{ object.placa }})</strong>?</p>
+    <small>Esta ação não pode ser desfeita.</small>
+    
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="contrast">Sim, Excluir</button>
+        <a href="{% url 'core:carro_list' %}" role="button" class="secondary">Cancelar</a>
+    </form>
+{% endblock %}

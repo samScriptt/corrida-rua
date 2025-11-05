@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Inscrição para: {{ corrida.nome }}</h1>
+    <p>Escolha o carro e o número de largada para participar desta corrida.</p>
+
+    <form method="post">
+        {% csrf_token %}
+        
+        {{ form.as_p }}
+        
+        <button type="submit">Confirmar Inscrição</button>
+        <a href="{% url 'core:corrida_detail' corrida.pk %}" role="button" class="secondary">Voltar para a Corrida</a>
+    </form>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>🏆 Corridas</h1>
+    <a href="{% url 'core:corrida_create' %}" role="button">Criar Nova Corrida</a>
+
+    <div class="grid">
+        {% for corrida in corridas %}
+        <article>
+            <header>
+                <h2><a href="{% url 'core:corrida_detail' corrida.pk %}">{{ corrida.nome }}</a></h2>
+                <small><strong>Data:</strong> {{ corrida.data|date:"d/m/Y" }}</small>
+            </header>
+            <footer>
+                <p>
+                    <strong>Pista:</strong> {{ corrida.pista.nome }}<br>
+                    <strong>Categoria:</strong> {{ corrida.get_categoria_display }}<br>
+                    <strong>Status:</strong> <mark>{{ corrida.get_status_display }}</mark>
+                </p>
+                <a href="{% url 'core:corrida_detail' corrida.pk %}" role="button" class="secondary">Ver Detalhes & Inscrever</a>
+            </footer>
+        </article>
+        {% empty %}
+        <p>Nenhuma corrida cadastrada.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

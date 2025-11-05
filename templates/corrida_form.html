@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if object %}
+        <h1>Editar Corrida: {{ object.nome }}</h1>
+    {% else %}
+        <h1>Criar Nova Corrida</h1>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        
+        <fieldset>
+            <legend>{{ form.instance.nome|default:"Nova Corrida" }}</legend>
+            
+            {{ form.as_p }}
+        </fieldset>
+        
+        <button type="submit">Salvar Corrida</button>
+        <a href="{% url 'core:corrida_list' %}" role="button" class="secondary">Cancelar</a>
+    </form>
+{% endblock %}

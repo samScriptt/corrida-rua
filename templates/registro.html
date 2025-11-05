@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>👤 Cadastro de Piloto e Equipe</h1>
+    <p>Crie sua conta, seu perfil de piloto e vincule-se a uma equipe (existente ou nova).</p>
+
+    <form method="post">
+        {% csrf_token %}
+        
+        <fieldset>
+            <legend>Dados de Acesso (Login)</legend>
+            {{ form.username.label_tag }}
+            {{ form.username }}
+            {{ form.username.errors }}
+
+            {{ form.email.label_tag }}
+            {{ form.email }}
+            {{ form.email.errors }}
+
+            {{ form.password.label_tag }}
+            {{ form.password }}
+            {{ form.password.errors }}
+
+            {{ form.password_confirm.label_tag }}
+            {{ form.password_confirm }}
+            {{ form.password_confirm.errors }}
+        </fieldset>
+        
+        <fieldset>
+            <legend>Dados do Piloto</legend>
+            {{ form.nome_piloto.label_tag }}
+            {{ form.nome_piloto }}
+            {{ form.nome_piloto.errors }}
+
+            {{ form.data_nascimento.label_tag }}
+            {{ form.data_nascimento }}
+            {{ form.data_nascimento.errors }}
+            
+            {{ form.documento.label_tag }}
+            {{ form.documento }}
+            {{ form.documento.errors }}
+
+            {{ form.categoria.label_tag }}
+            {{ form.categoria }}
+            {{ form.categoria.errors }}
+        </fieldset>
+        
+        <fieldset>
+            <legend>Vinculação de Equipe</legend>
+            
+            <p><strong>1. Escolha uma Equipe Existente:</strong></p>
+            {{ form.equipe_existente.label_tag }}
+            {{ form.equipe_existente }}
+            {{ form.equipe_existente.errors }}
+            
+            <hr>
+            
+            <p><strong>OU 2. Crie uma Nova Equipe:</strong></p>
+            {{ form.nova_equipe_nome.label_tag }}
+            {{ form.nova_equipe_nome }}
+
+            {{ form.nova_equipe_cidade.label_tag }}
+            {{ form.nova_equipe_cidade }}
+
+            {{ form.nova_equipe_patrocinador.label_tag }}
+            {{ form.nova_equipe_patrocinador }}
+            
+            {% if form.non_field_errors %}
+                <small style="color: red;">
+                    {% for error in form.non_field_errors %}
+                        {{ error }}
+                    {% endfor %}
+                </small>
+            {% endif %}
+
+        </fieldset>
+
+        <button type="submit">Registrar e Entrar</button>
+        <p>Já tem conta? <a href="{% url 'login' %}">Faça login</a>.</p>
+    </form>
+{% endblock %}

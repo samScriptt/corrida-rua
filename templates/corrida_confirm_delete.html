@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Excluir Corrida</h1>
+    
+    <article class="danger">
+        <header>
+            <h2>Confirmação de Exclusão</h2>
+        </header>
+        
+        <p>Você tem **certeza absoluta** que deseja excluir a corrida:</p>
+        <p><strong>{{ object.nome }} ({{ object.data|date:"d/m/Y" }})</strong>?</p>
+        
+        <small>⚠️ **ATENÇÃO:** Se houverem inscrições vinculadas a esta corrida, elas também serão permanentemente excluídas.</small>
+        
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="contrast">Sim, Excluir Definitivamente</button>
+            <a href="{% url 'core:corrida_list' %}" role="button" class="secondary">Cancelar</a>
+        </form>
+    </article>
+    
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Bem-vindo ao Portal de Corridas!</h1>
+    
+    {% if user.is_authenticated %}
+        <p>Olá, {{ user.username }}. Use o menu acima para navegar.</p>
+    {% else %}
+        <p>Faça <a href="{% url 'login' %}">login</a> ou <a href="{% url 'core:registro' %}">registre-se</a> para começar a gerenciar suas equipes, carros e corridas.</p>
+    {% endif %}
+{% endblock %}

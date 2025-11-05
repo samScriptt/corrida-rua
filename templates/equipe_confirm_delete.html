@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Excluir Equipe</h1>
+    <p>Você tem certeza que quer excluir a equipe: <strong>{{ object.nome }}</strong>?</p>
+    <small>Se você excluir a equipe, todos os pilotos e carros vinculados a ela terão esse campo apagado.</small>
+    
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="contrast">Sim, Excluir Definitivamente</button>
+        <a href="{% url 'core:equipe_list' %}" role="button" class="secondary">Cancelar</a>
+    </form>
+{% endblock %}

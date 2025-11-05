@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>🏁 Portal de Corridas</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <style>
+        body { padding-top: 20px; }
+        main { padding-top: 20px; }
+        nav { margin-bottom: 20px; }
+        /* Estilo para fazer o botão de logout dentro do formulário parecer um link na navbar */
+        nav button {
+            border: none;
+            background: none;
+            cursor: pointer;
+            padding: 0 0.5rem; /* Ajuste o padding conforme necessário */
+            text-decoration: none;
+            color: var(--pico-color); /* Usa a cor padrão do pico para links */
+            font-size: 1rem;
+            margin-left: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <main class="container">
+        <nav>
+            <ul>
+                <li><strong><a href="{% url 'core:home' %}">🏁 Portal de Corridas</a></strong></li>
+            </ul>
+            
+            <ul>
+                {% if user.is_authenticated %}
+                    
+                    <li><a href="{% url 'core:equipe_list' %}">Minha Equipe</a></li>
+                    <li><a href="{% url 'core:carro_list' %}">Meus Carros</a></li>
+                    <li><a href="{% url 'core:pista_list' %}">Pistas</a></li>
+                    <li><a href="{% url 'core:corrida_list' %}">Corridas</a></li>
+                    
+                    <li>
+                        <form action="{% url 'logout' %}" method="post" style="padding: 0; margin: 0; display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="secondary">
+                                Sair ({{ user.username }})
+                            </button>
+                        </form>
+                    </li>
+                {% else %}
+                    <li><a href="{% url 'login' %}" role="button">Entrar</a></li>
+                    <li><a href="{% url 'core:registro' %}" role="button">Registrar</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>🚗 Meus Carros</h1>
+    
+    {% if carros %}
+        <p>Estes são os carros vinculados à sua equipe.</p>
+        <a href="{% url 'core:carro_create' %}" role="button">Cadastrar Novo Carro</a>
+
+        <table role="grid">
+            <thead>
+                <tr>
+                    <th scope="col">Modelo</th>
+                    <th scope="col">Placa</th>
+                    <th scope="col">Ano</th>
+                    <th scope="col">Equipe</th>
+                    <th scope="col">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for carro in carros %}
+                <tr>
+                    <td>{{ carro.modelo }}</td>
+                    <td>{{ carro.placa }}</td>
+                    <td>{{ carro.ano }}</td>
+                    <td>{{ carro.equipe.nome }}</td>
+                    <td>
+                        <a href="{% url 'core:carro_update' carro.pk %}">Editar</a>
+                        |
+                        <a href="{% url 'core:carro_delete' carro.pk %}">Excluir</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Sua equipe não possui carros cadastrados. Ou você precisa estar vinculado a uma equipe.</p>
+        <a href="{% url 'core:carro_create' %}" role="button">Cadastrar Novo Carro</a>
+    {% endif %}
+{% endblock %}

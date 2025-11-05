@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Detalhes da Corrida: {{ corrida.nome }}</h1>
+    
+    <div class="grid">
+        <section>
+            <h2>Informações</h2>
+            <ul>
+                <li><strong>Data:</strong> {{ corrida.data|date:"d/m/Y" }}</li>
+                <li><strong>Pista:</strong> {{ corrida.pista.nome }} ({{ corrida.pista.cidade }})</li>
+                <li><strong>Categoria:</strong> {{ corrida.get_categoria_display }}</li>
+                <li><strong>Status:</strong> <mark>{{ corrida.get_status_display }}</mark></li>
+            </ul>
+            
+            {% if corrida.status == "PLANEJADA" %}
+                <a href="{% url 'core:inscricao_create' corrida.pk %}" role="button">Inscrever Meu Carro Agora!</a>
+            {% else %}
+                <button role="button" disabled>Inscrições Fechadas</button>
+            {% endif %}
+
+            <hr>
+            <a href="{% url 'core:corrida_update' corrida.pk %}" class="secondary">Editar Corrida</a>
+            <a href="{% url 'core:corrida_delete' corrida.pk %}" class="contrast">Excluir Corrida</a>
+        </section>
+        
+        <section>
+            <h2>Inscrições ({{ corrida.inscricoes.count }})</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Piloto</th>
+                        <th>Carro</th>
+                        <th>Situação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for inscricao in corrida.inscricoes.all %}
+                    <tr>
+                        <td>{{ inscricao.numero_largada }}</td>
+                        <td>{{ inscricao.piloto.nome }}</td>
+                        <td>{{ inscricao.carro.modelo }} ({{ inscricao.carro.placa }})</td>
+                        <td>{{ inscricao.get_situacao_display }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4">Ninguém inscrito ainda.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </div>
+{% endblock %}

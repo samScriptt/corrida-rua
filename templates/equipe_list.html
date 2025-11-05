@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Minha Equipe</h1>
+    
+    {% if equipes %}
+        {% for equipe in equipes %}
+        <article>
+            <header>
+                <h2>{{ equipe.nome }}</h2>
+            </header>
+            <p><strong>Cidade:</strong> {{ equipe.cidade }}</p>
+            <p><strong>Patrocinador:</strong> {{ equipe.patrocinador }}</p>
+            <footer>
+                <a href="{% url 'core:equipe_update' equipe.pk %}" role="button" class="secondary">Editar</a>
+                <a href="{% url 'core:equipe_delete' equipe.pk %}" role="button" class="contrast">Excluir</a>
+            </footer>
+        </article>
+        {% endfor %}
+    {% else %}
+        <p>Você não tem uma equipe cadastrada ou associada ao seu perfil.</p>
+        <a href="{% url 'core:equipe_create' %}" role="button">Cadastrar Nova Equipe</a>
+    {% endif %}
+{% endblock %}

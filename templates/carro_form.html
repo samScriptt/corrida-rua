@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if object %}
+        <h1>Editar Carro: {{ object.modelo }} ({{ object.placa }})</h1>
+    {% else %}
+        <h1>Cadastrar Novo Carro</h1>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        
+        <button type="submit">Salvar Carro</button>
+        <a href="{% url 'core:carro_list' %}" role="button" class="secondary">Cancelar</a>
+    </form>
+{% endblock %}

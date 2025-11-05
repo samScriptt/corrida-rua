@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if object %}
+        <h1>Editar Pista: {{ object.nome }}</h1>
+    {% else %}
+        <h1>Cadastrar Nova Pista</h1>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        
+        <button type="submit">Salvar Pista</button>
+        <a href="{% url 'core:pista_list' %}" role="button" class="secondary">Cancelar</a>
+    </form>
+{% endblock %}
