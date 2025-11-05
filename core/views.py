@@ -10,6 +10,8 @@ from django.contrib.auth import login # <-- ESSENCIAL para o registro
 from .models import Equipe, Piloto, Carro, Pista, Corrida, Inscricao
 from .forms import EquipeForm, CarroForm, PistaForm, CorridaForm, InscricaoForm, RegistroPilotoForm # <-- ESSENCIAL para o registro
 
+from django.db.models import Max
+
 
 # --- HOME ---
 def home(request):
@@ -210,15 +212,32 @@ class InscricaoCreateView(LoginRequiredMixin, CreateView):
 
         return form
 
+    # core/views.py (Dentro da classe InscricaoCreateView)
+
     def form_valid(self, form):
         corrida = get_object_or_404(Corrida, pk=self.kwargs['corrida_pk'])
         piloto = get_piloto_profile(self.request)
         
-        # Injeta os campos obrigatórios (corrida e piloto)
+        # --- 1. PREVENIR A DUPLICIDADE ---
+        if Inscricao.objects.filter(corrida=corrida, piloto=piloto).exists():
+            print("AVISO: Este piloto já está inscrito nesta corrida.")
+            return redirect('core:corrida_detail', pk=corrida.pk)
+
+        # --- 2. CALCULAR O PRÓXIMO NÚMERO DE LARGADA ---
+        from django.db.models import Max # Ainda precisa desta importação no topo!
+        
+        max_numero = Inscricao.objects.filter(corrida=corrida).aggregate(Max('numero_largada'))['numero_largada__max']
+        next_numero = (max_numero or 0) + 1
+
+        # --- 3. ATRIBUIR E SALVAR MANUALMENTE (CORREÇÃO) ---
+        
+        # Atribui os campos necessários
         form.instance.corrida = corrida
         form.instance.piloto = piloto
+        form.instance.numero_largada = next_numero
         
-        response = super().form_valid(form)
+        # SALVA a instância diretamente (substituindo o super().form_valid)
+        form.instance.save() 
         
         # Redireciona para o detalhe da Corrida após a inscrição
         return redirect('core:corrida_detail', pk=corrida.pk)

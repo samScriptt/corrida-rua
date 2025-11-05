@@ -32,7 +32,7 @@ class InscricaoForm(forms.ModelForm):
     class Meta:
         model = Inscricao
         # Campos de 'piloto', 'corrida' e 'situacao' são preenchidos pela View
-        fields = ["carro", "numero_largada"]
+        fields = ["carro"]
 
 # =================================================================
 # --- 2. FORM DE REGISTRO UNIFICADO ---
