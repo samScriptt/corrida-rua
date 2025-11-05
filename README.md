@@ -6,7 +6,7 @@ Projeto desenvolvido em **Django** para gerenciar equipes, pilotos, carros, pist
 
 ## 🚀 Como Executar o Projeto
 
-### 1️⃣ Criar e ativar o ambiente virtual
+### Criar e ativar o ambiente virtual
 
 Abra o terminal na pasta do projeto e execute:
 
@@ -24,14 +24,14 @@ venv\Scripts\activate
 
 ---
 
-### 2️⃣ Instalar dependências
+### Instalar dependências
 ```bash
 pip install django
 ```
 
 ---
 
-### 3️⃣ Rodar migrações iniciais
+### Rodar migrações iniciais
 ```bash
 python manage.py makemigrations
 python manage.py migrate
@@ -39,7 +39,7 @@ python manage.py migrate
 
 ---
 
-### 5️⃣ Iniciar o servidor
+### Iniciar o servidor
 ```bash
 python manage.py runserver
 ```
